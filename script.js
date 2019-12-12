@@ -19,7 +19,10 @@ colorRGB = () => {
   let r = Math.floor(Math.random() * 255);
   let g = Math.floor(Math.random() * 255);
   let b = Math.floor(Math.random() * 255);
-  return 'rgb(' + r + ',' + g + ',' + b + ')';
+  //return 'rgb(' + r + ',' + g + ',' + b + ')';
+  console.log('ding');
+  let rgbArray = [r, g, b];
+  return rgbArray;
 };
 
 //display hex
@@ -41,9 +44,9 @@ child[2].textContent = randomColor.slice(4, 6);
 
 //display rgb
 var display2 = document.getElementById('display2');
-display2.textContent = colorRGB();
-display2.style.backgroundColor = colorRGB();
-console.log('TCL: colorRGB', colorRGB());
+var currentRGB = colorRGB();
+display2.textContent = currentRGB;
+display2.style.backgroundColor = 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')';
 
 for (let i = 0; i < 3; i++) {
   let item = document.createElement('p');
@@ -51,9 +54,7 @@ for (let i = 0; i < 3; i++) {
   display2.appendChild(item);
 }
 
-/*
 let child2 = display2.getElementsByClassName('item');
-child2[0].textContent = colorRGB.slice(0, 2);
-child2[1].textContent = colorRGB.slice(2, 4);
-child2[2].textContent = colorRGB.slice(4, 6);
-*/
+child2[0].textContent = currentRGB[0];
+child2[1].textContent = currentRGB[1];
+child2[2].textContent = currentRGB[2];
