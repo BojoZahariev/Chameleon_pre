@@ -56,5 +56,9 @@ for (let i = 0; i < 3; i++) {
 
 let child2 = display2.getElementsByClassName('item');
 child2[0].textContent = currentRGB[0];
+//needs checking the color
+child2[0].style.backgroundColor = 'rgb(' + currentRGB[0] + ',' + 00 + ',' + 00 + ')';
 child2[1].textContent = currentRGB[1];
+child2[1].style.backgroundColor = 'rgb(' + 00 + ',' + currentRGB[1] + ',' + 00 + ')';
 child2[2].textContent = currentRGB[2];
+child2[2].style.backgroundColor = 'rgb(' + 00 + ',' + 00 + ',' + currentRGB[2] + ')';
