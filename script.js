@@ -3,15 +3,44 @@ class Chameleon extends React.Component {
     super(props);
   }
   render() {
-    return <p style={this.props.style}>{this.props.name}</p>;
+    return (
+      <p className="cham" style={this.props.style}>
+        {this.props.name}
+      </p>
+    );
   }
 }
+
+const ColorFrame1 = props => {
+  return (
+    <div>
+      <p style={props.style}>Part 1 is: {props.color}</p>
+    </div>
+  );
+};
+
+const ColorFrame2 = props => {
+  return (
+    <div>
+      <p>Part 2 is: {props.color}</p>
+    </div>
+  );
+};
+
+const ColorFrame3 = props => {
+  return (
+    <div>
+      <p>Part 3 is: {props.color}</p>
+    </div>
+  );
+};
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: 'red'
+      color: 'red',
+      colorArray: []
     };
 
     this.changeColor = this.changeColor.bind(this);
@@ -32,7 +61,8 @@ class Container extends React.Component {
 
     this.setState({
       //color: 'green'
-      color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')'
+      color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
+      colorArray: currentRGB
     });
   }
 
@@ -40,9 +70,14 @@ class Container extends React.Component {
     return (
       <div>
         <Chameleon style={{ backgroundColor: this.state.color }} name={this.state.color} />
+
         <button className="testButton" onClick={this.changeColor}>
           CLICK
         </button>
+
+        <ColorFrame1 style={{ backgroundColor: 'red'}} color={this.state.colorArray[0]} />
+        <ColorFrame2 color={this.state.colorArray[1]} />
+        <ColorFrame3 color={this.state.colorArray[2]} />
       </div>
     );
   }
