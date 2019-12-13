@@ -17,9 +17,22 @@ class Container extends React.Component {
     this.changeColor = this.changeColor.bind(this);
   }
 
+  colorRGB = () => {
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
+
+    console.log('ding');
+    let rgbArray = [r, g, b];
+    return rgbArray;
+  };
+
   changeColor() {
+    let currentRGB = this.colorRGB();
+
     this.setState({
-      color: 'green'
+      //color: 'green'
+      color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')'
     });
   }
 
