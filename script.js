@@ -22,7 +22,7 @@ const ColorFrame1 = props => {
 const ColorFrame2 = props => {
   return (
     <div>
-      <p>Part 2 is: {props.color}</p>
+      <p style={props.style}>Part 2 is: {props.color}</p>
     </div>
   );
 };
@@ -30,7 +30,7 @@ const ColorFrame2 = props => {
 const ColorFrame3 = props => {
   return (
     <div>
-      <p>Part 3 is: {props.color}</p>
+      <p style={props.style}>Part 3 is: {props.color}</p>
     </div>
   );
 };
@@ -75,9 +75,18 @@ class Container extends React.Component {
           CLICK
         </button>
 
-        <ColorFrame1 style={{ backgroundColor: 'red'}} color={this.state.colorArray[0]} />
-        <ColorFrame2 color={this.state.colorArray[1]} />
-        <ColorFrame3 color={this.state.colorArray[2]} />
+        <ColorFrame1
+          style={{ backgroundColor: 'rgb(' + this.state.colorArray[0] + ',' + '00' + ',' + '00' + ')' }}
+          color={this.state.colorArray[0]}
+        />
+        <ColorFrame2
+          style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.colorArray[1] + ',' + '00' + ')' }}
+          color={this.state.colorArray[1]}
+        />
+        <ColorFrame3
+          style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.colorArray[2] + ')' }}
+          color={this.state.colorArray[2]}
+        />
       </div>
     );
   }
