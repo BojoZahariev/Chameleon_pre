@@ -39,7 +39,7 @@ class Container extends React.Component {
   render() {
     return (
       <div>
-        <Chameleon style={{ backgroundColor: this.state.color }} name={'Chameleon'} />
+        <Chameleon style={{ backgroundColor: this.state.color }} name={this.state.color} />
         <button className="testButton" onClick={this.changeColor}>
           CLICK
         </button>
