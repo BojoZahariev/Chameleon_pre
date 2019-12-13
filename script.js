@@ -1,3 +1,5 @@
+/*
+
 //var randomColor1 = Math.floor(Math.random() * 16777215).toString(16);
 
 /*
@@ -62,3 +64,38 @@ child2[1].textContent = currentRGB[1];
 child2[1].style.backgroundColor = 'rgb(' + 0 + ',' + currentRGB[1] + ',' + 0 + ')';
 child2[2].textContent = currentRGB[2];
 child2[2].style.backgroundColor = 'rgb(' + 0 + ',' + 0 + ',' + currentRGB[2] + ')';
+*/
+
+class Chameleon extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <p style={this.props.style}>{this.props.name}</p>;
+  }
+}
+
+class Container extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      liked: false
+    };
+  }
+
+  render() {
+    let inputStyle = {
+      backgroundColor: 'red'
+    };
+
+    return (
+      <div>
+        <Chameleon style={inputStyle} name={'Smokinq'} />
+      </div>
+    );
+  }
+}
+
+const domContainer = document.querySelector('#root');
+ReactDOM.render(<Container />, domContainer);
+
