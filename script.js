@@ -11,49 +11,31 @@ class Chameleon extends React.Component {
   }
 }
 
-class ColorFrame1 extends React.Component {
-  constructor(props) {
-    super(props);
+const ColorFrame1 = props => {
+  return (
+    <div className="blocks" style={props.style} onClick={props.onClick}>
+      <p>Part 1 is: {props.color}</p>
+    </div>
+  );
+};
 
-    this.state = {
-      clicked: false
-    };
-  }
-  render() {
-    return (
-      <div className="blocks" style={{ backgroundColor: 'rgb(' + this.props.colorCode[0] + ',' + '00' + ',' + '00' + ')' }}>
-        <p>Part 1 is: {this.props.colorCode[0]}</p>
-      </div>
-    );
-  }
-}
+const ColorFrame2 = props => {
+  return (
+    <div className="blocks" style={props.style}>
+      <p>Part 2 is: {props.color}</p>
+    </div>
+  );
+};
 
-class ColorFrame2 extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="blocks" style={{ backgroundColor: 'rgb(' + '00' + ',' + this.props.colorCode[1] + ',' + '00' + ')' }}>
-        <p>Part 2 is: {this.props.colorCode[1]}</p>
-      </div>
-    );
-  }
-}
+const ColorFrame3 = props => {
+  return (
+    <div className="blocks" style={props.style}>
+      <p>Part 3 is: {props.color}</p>
+    </div>
+  );
+};
 
-class ColorFrame3 extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="blocks" style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.props.colorCode[2] + ')' }}>
-        <p>Part 3 is: {this.props.colorCode[2]}</p>
-      </div>
-    );
-  }
-}
-
+/*
 class ColorMixer extends React.Component {
   constructor(props) {
     super(props);
@@ -61,23 +43,24 @@ class ColorMixer extends React.Component {
   render() {
     return (
       <div className="colorBar">
-        <ColorFrame1 colorCode={this.props.colorCode} />
-        <ColorFrame2 colorCode={this.props.colorCode} />
-        <ColorFrame3 colorCode={this.props.colorCode} />
+        <ColorFrame1 color={'jjjj'} />
       </div>
     );
   }
 }
+*/
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       color: 'red',
-      colorArray: []
+      colorArray: [],
+      clickedBlocks: []
     };
 
     this.changeColor = this.changeColor.bind(this);
+    this.sayHello = this.sayHello.bind(this);
   }
 
   colorRGB = () => {
@@ -94,35 +77,34 @@ class Container extends React.Component {
     let currentRGB = this.colorRGB();
 
     this.setState({
-      //color: 'green'
       color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
       colorArray: currentRGB
     });
+  }
+
+  sayHello(name) {
+    console.log(`hello, ${name}`);
   }
 
   render() {
     return (
       <div>
         <Chameleon style={{ backgroundColor: this.state.color }} name={this.state.color} />
-        {/*
-        <ColorFrame1 style={{ backgroundColor: 'rgb(' + this.state.colorArray[0] + ',' + '00' + ',' + '00' + ')' }} color={this.state.colorArray[0]} />
-        
-        
+
+        <ColorFrame1
+          onClick={() => this.sayHello(this.state.colorArray[0])}
+          style={{ backgroundColor: 'rgb(' + this.state.colorArray[0] + ',' + '00' + ',' + '00' + ')' }}
+          color={this.state.colorArray[0]}
+        />
+
         <ColorFrame2 style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.colorArray[1] + ',' + '00' + ')' }} color={this.state.colorArray[1]} />
         <ColorFrame3 style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.colorArray[2] + ')' }} color={this.state.colorArray[2]} />
-        */}
-        <ColorFrame1 colorCode={this.state.colorArray} />
-        <ColorFrame2 colorCode={this.state.colorArray} />
-        <ColorFrame3 colorCode={this.state.colorArray} />
 
         <button className="testButton" onClick={this.changeColor}>
           START
         </button>
 
-        <ColorMixer colorCode={this.state.colorArray} />
-        {/*
-        {this.state.color !== 'red' && <div className="colorBar"></div>}
-        */}
+        <div className="colorBar"></div>
       </div>
     );
   }
