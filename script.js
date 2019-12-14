@@ -21,7 +21,7 @@ const ColorFrame1 = props => {
 
 const ColorFrame2 = props => {
   return (
-    <div className="blocks" style={props.style}>
+    <div className="blocks" style={props.style} onClick={props.onClick}>
       <p>Part 2 is: {props.color}</p>
     </div>
   );
@@ -29,7 +29,7 @@ const ColorFrame2 = props => {
 
 const ColorFrame3 = props => {
   return (
-    <div className="blocks" style={props.style}>
+    <div className="blocks" style={props.style} onClick={props.onClick}>
       <p>Part 3 is: {props.color}</p>
     </div>
   );
@@ -84,6 +84,12 @@ class Container extends React.Component {
 
   sayHello(name) {
     console.log(`hello, ${name}`);
+    console.log('TCL: Container -> sayHello -> clickedBlocks', this.state.clickedBlocks);
+    if (this.state.clickedBlocks.length <= 2) {
+      this.setState({
+        clickedBlocks: this.state.clickedBlocks.concat(name)
+      });
+    }
   }
 
   render() {
@@ -97,14 +103,26 @@ class Container extends React.Component {
           color={this.state.colorArray[0]}
         />
 
-        <ColorFrame2 style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.colorArray[1] + ',' + '00' + ')' }} color={this.state.colorArray[1]} />
-        <ColorFrame3 style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.colorArray[2] + ')' }} color={this.state.colorArray[2]} />
+        <ColorFrame2
+          onClick={() => this.sayHello(this.state.colorArray[1])}
+          style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.colorArray[1] + ',' + '00' + ')' }}
+          color={this.state.colorArray[1]}
+        />
+        <ColorFrame3
+          onClick={() => this.sayHello(this.state.colorArray[2])}
+          style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.colorArray[2] + ')' }}
+          color={this.state.colorArray[2]}
+        />
 
         <button className="testButton" onClick={this.changeColor}>
           START
         </button>
 
-        <div className="colorBar"></div>
+        <div className="colorBar">
+          <p style={{ backgroundColor: 'rgb(' + this.state.clickedBlocks[0] + ',' + '00' + ',' + '00' + ')' }}>{this.state.clickedBlocks[0]}</p>
+          <p style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.clickedBlocks[1] + ',' + '00' + ')' }}>{this.state.clickedBlocks[1]}</p>
+          <p style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.clickedBlocks[2] + ')' }}>{this.state.clickedBlocks[2]}</p>
+        </div>
       </div>
     );
   }
