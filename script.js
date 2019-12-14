@@ -93,6 +93,14 @@ class Container extends React.Component {
   }
 
   render() {
+    console.log('TCL: Container -> render -> this.state.clickedBlocks', this.state.clickedBlocks);
+    console.log('TCL: Container -> render -> this.state.colorArray', this.state.colorArray);
+
+    function arraysEqual(a1, a2) {
+      /* WARNING: arrays must not contain {objects} or behavior may be undefined */
+      return JSON.stringify(a1) == JSON.stringify(a2);
+    }
+    const message = <p>Success</p>;
     return (
       <div>
         <Chameleon style={{ backgroundColor: this.state.color }} name={this.state.color} />
@@ -123,6 +131,11 @@ class Container extends React.Component {
           <p style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.clickedBlocks[1] + ',' + '00' + ')' }}>{this.state.clickedBlocks[1]}</p>
           <p style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.clickedBlocks[2] + ')' }}>{this.state.clickedBlocks[2]}</p>
         </div>
+
+        <div style={{ backgroundColor: 'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')' }}>
+          combined : rgb{this.state.clickedBlocks[0]},{this.state.clickedBlocks[1]},{this.state.clickedBlocks[2]}
+        </div>
+        {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? message : <p>nope</p>}
       </div>
     );
   }
