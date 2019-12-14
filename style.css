@@ -1,3 +1,25 @@
+#root {
+  position: relative;
+}
+
+.cham {
+  width: 200px;
+  height: 200px;
+}
+
 .testButton {
   background-color: aquamarine;
+}
+
+.blocks {
+  color: #fff;
+  width: 100px;
+  height: 50px;
+  border: 1px solid #222;
+}
+
+.colorBar {
+  margin: 20px auto;
+  border: 2px solid #222;
+  color: #fff;
 }
