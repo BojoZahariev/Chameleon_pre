@@ -21,8 +21,8 @@ class ColorFrame1 extends React.Component {
   }
   render() {
     return (
-      <div className="blocks" style={this.props.style}>
-        <p>Part 1 is: {this.props.color}</p>
+      <div className="blocks" style={{ backgroundColor: 'rgb(' + this.props.colorCode[0] + ',' + '00' + ',' + '00' + ')' }}>
+        <p>Part 1 is: {this.props.colorCode[0]}</p>
       </div>
     );
   }
@@ -34,8 +34,8 @@ class ColorFrame2 extends React.Component {
   }
   render() {
     return (
-      <div className="blocks" style={this.props.style}>
-        <p>Part 2 is: {this.props.color}</p>
+      <div className="blocks" style={{ backgroundColor: 'rgb(' + '00' + ',' + this.props.colorCode[1] + ',' + '00' + ')' }}>
+        <p>Part 2 is: {this.props.colorCode[1]}</p>
       </div>
     );
   }
@@ -47,8 +47,8 @@ class ColorFrame3 extends React.Component {
   }
   render() {
     return (
-      <div className="blocks" style={this.props.style}>
-        <p>Part 3 is: {this.props.color}</p>
+      <div className="blocks" style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.props.colorCode[2] + ')' }}>
+        <p>Part 3 is: {this.props.colorCode[2]}</p>
       </div>
     );
   }
@@ -61,7 +61,9 @@ class ColorMixer extends React.Component {
   render() {
     return (
       <div className="colorBar">
-        <ColorFrame1 color={'jjjj'} />
+        <ColorFrame1 colorCode={this.props.colorCode} />
+        <ColorFrame2 colorCode={this.props.colorCode} />
+        <ColorFrame3 colorCode={this.props.colorCode} />
       </div>
     );
   }
@@ -102,14 +104,22 @@ class Container extends React.Component {
     return (
       <div>
         <Chameleon style={{ backgroundColor: this.state.color }} name={this.state.color} />
+        {/*
         <ColorFrame1 style={{ backgroundColor: 'rgb(' + this.state.colorArray[0] + ',' + '00' + ',' + '00' + ')' }} color={this.state.colorArray[0]} />
+        
+        
         <ColorFrame2 style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.colorArray[1] + ',' + '00' + ')' }} color={this.state.colorArray[1]} />
         <ColorFrame3 style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.colorArray[2] + ')' }} color={this.state.colorArray[2]} />
+        */}
+        <ColorFrame1 colorCode={this.state.colorArray} />
+        <ColorFrame2 colorCode={this.state.colorArray} />
+        <ColorFrame3 colorCode={this.state.colorArray} />
+
         <button className="testButton" onClick={this.changeColor}>
           START
         </button>
 
-        <ColorMixer />
+        <ColorMixer colorCode={this.state.colorArray} />
         {/*
         {this.state.color !== 'red' && <div className="colorBar"></div>}
         */}
