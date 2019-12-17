@@ -5,7 +5,7 @@ class Chameleon extends React.Component {
   render() {
     return (
       <div className="cham" style={this.props.style}>
-        <p>{this.props.name}</p>
+        <p></p>
       </div>
     );
   }
@@ -35,27 +35,19 @@ const ColorFrame3 = props => {
   );
 };
 
-const ColorFrame4 = props => {
-  return (
-    <div className="blocks" style={props.style} onClick={props.onClick}>
-      <p>{props.color}</p>
-    </div>
-  );
-};
-
 class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: 'red',
+      color: 'green',
       colorArray: [],
       shuffledColorArray: [],
       clickedBlocks: []
     };
 
     this.changeColor = this.changeColor.bind(this);
-    this.sayHello = this.sayHello.bind(this);
-    this.shuffle = this.shuffle.bind(this);
+    this.clickControl = this.clickControl.bind(this);
+    this.shuffleColors = this.shuffleColors.bind(this);
   }
 
   colorRGB = () => {
@@ -67,7 +59,7 @@ class Container extends React.Component {
     return rgbArray;
   };
 
-  shuffle(a) {
+  shuffleColors(a) {
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [a[i], a[j]] = [a[j], a[i]];
@@ -79,17 +71,20 @@ class Container extends React.Component {
   changeColor() {
     let currentRGB = this.colorRGB();
     let ff = [...currentRGB];
-    let test = this.shuffle(ff);
-    console.log('TCL: Container -> changeColor -> test', test);
+    let test = this.shuffleColors(ff);
+
     this.setState({
       color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
       colorArray: currentRGB,
-      shuffledColorArray: test
+      shuffledColorArray: test,
+      clickedBlocks: []
     });
+
+    console.log(this.state.clickedBlocks);
   }
 
-  sayHello(name) {
-    if (this.state.clickedBlocks.length <= 2) {
+  clickControl(name) {
+    if (this.state.clickedBlocks.length < 3) {
       this.setState({
         clickedBlocks: this.state.clickedBlocks.concat(name)
       });
@@ -105,30 +100,32 @@ class Container extends React.Component {
 
     return (
       <div>
-        <Chameleon style={{ backgroundColor: this.state.color }} name={this.state.color} />
+        <div className="field" style={{ backgroundColor: this.state.color }}>
+          {this.state.color}
+          <Chameleon
+            style={{
+              backgroundColor: 'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'
+            }}
+          />
 
-        <div className="blocksDiv">
-          <ColorFrame1 onClick={() => this.sayHello(this.state.shuffledColorArray[0])} color={this.state.shuffledColorArray[0]} />
-          <ColorFrame2 onClick={() => this.sayHello(this.state.shuffledColorArray[1])} color={this.state.shuffledColorArray[1]} />
-          <ColorFrame3 onClick={() => this.sayHello(this.state.shuffledColorArray[2])} color={this.state.shuffledColorArray[2]} />
+          <div className="blocksDiv">
+            <ColorFrame1 onClick={() => this.clickControl(this.state.shuffledColorArray[0])} color={this.state.shuffledColorArray[0]} />
+            <ColorFrame2 onClick={() => this.clickControl(this.state.shuffledColorArray[1])} color={this.state.shuffledColorArray[1]} />
+            <ColorFrame3 onClick={() => this.clickControl(this.state.shuffledColorArray[2])} color={this.state.shuffledColorArray[2]} />
+          </div>
+
+          <button className="testButton" onClick={this.changeColor}>
+            START
+          </button>
+
+          <div className="colorBar">
+            <p className="colorBarBlocks">{this.state.clickedBlocks[0]}</p>
+            <p className="colorBarBlocks">{this.state.clickedBlocks[1]}</p>
+            <p className="colorBarBlocks">{this.state.clickedBlocks[2]}</p>
+          </div>
+
+          {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? message : <p>nope</p>}
         </div>
-
-        <button className="testButton" onClick={this.changeColor}>
-          START
-        </button>
-
-        <div
-          className="colorBar"
-          style={{ backgroundColor: 'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')' }}>
-          <p>{this.state.clickedBlocks[0]}</p>
-          <p>{this.state.clickedBlocks[1]}</p>
-          <p>{this.state.clickedBlocks[2]}</p>
-        </div>
-
-        <div style={{ backgroundColor: 'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')' }}>
-          combined : rgb{this.state.clickedBlocks[0]},{this.state.clickedBlocks[1]},{this.state.clickedBlocks[2]}
-        </div>
-        {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? message : <p>nope</p>}
       </div>
     );
   }
