@@ -107,27 +107,45 @@ class Container extends React.Component {
       />
     );
 
+    const block2 = (
+      <ColorFrame2
+        onClick={() => this.sayHello(this.state.colorArray[1])}
+        style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.colorArray[1] + ',' + '00' + ')' }}
+        color={this.state.colorArray[1]}
+      />
+    );
+
+    const block3 = (
+      <ColorFrame3
+        onClick={() => this.sayHello(this.state.colorArray[2])}
+        style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.colorArray[2] + ')' }}
+        color={this.state.colorArray[2]}
+      />
+    );
+
+    const block4 = <div>block4</div>;
+
+    function shuffle(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    let blocksArray = [block1, block2, block3, block4];
+    shuffle(blocksArray);
+
     return (
       <div>
         <Chameleon style={{ backgroundColor: this.state.color }} name={this.state.color} />
 
         <div className="blocksDiv">
-          <ColorFrame1
-            onClick={() => this.sayHello(this.state.colorArray[0])}
-            style={{ backgroundColor: 'rgb(' + this.state.colorArray[0] + ',' + '00' + ',' + '00' + ')' }}
-            color={this.state.colorArray[0]}
-          />
-          <ColorFrame2
-            onClick={() => this.sayHello(this.state.colorArray[1])}
-            style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.colorArray[1] + ',' + '00' + ')' }}
-            color={this.state.colorArray[1]}
-          />
-          <ColorFrame3
-            onClick={() => this.sayHello(this.state.colorArray[2])}
-            style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.colorArray[2] + ')' }}
-            color={this.state.colorArray[2]}
-          />
+          {blocksArray[0]}
+          {blocksArray[1]}
+          {blocksArray[2]}
+          {blocksArray[3]}
         </div>
+
         <button className="testButton" onClick={this.changeColor}>
           START
         </button>
