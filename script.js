@@ -49,11 +49,13 @@ class Container extends React.Component {
     this.state = {
       color: 'red',
       colorArray: [],
+      shuffledColorArray: [],
       clickedBlocks: []
     };
 
     this.changeColor = this.changeColor.bind(this);
     this.sayHello = this.sayHello.bind(this);
+    this.shuffle = this.shuffle.bind(this);
   }
 
   colorRGB = () => {
@@ -61,17 +63,28 @@ class Container extends React.Component {
     let g = Math.floor(Math.random() * 255);
     let b = Math.floor(Math.random() * 255);
 
-    console.log('ding');
     let rgbArray = [r, g, b];
     return rgbArray;
   };
 
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+
+    return a;
+  }
+
   changeColor() {
     let currentRGB = this.colorRGB();
-
+    let ff = [...currentRGB];
+    let test = this.shuffle(ff);
+    console.log('TCL: Container -> changeColor -> test', test);
     this.setState({
       color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
-      colorArray: currentRGB
+      colorArray: currentRGB,
+      shuffledColorArray: test
     });
   }
 
@@ -84,40 +97,20 @@ class Container extends React.Component {
   }
 
   render() {
-    console.log('TCL: Container -> render -> this.state.clickedBlocks', this.state.clickedBlocks);
-    console.log('TCL: Container -> render -> this.state.colorArray', this.state.colorArray);
-
     const message = <p>Success</p>;
-
-    const block1 = <ColorFrame1 onClick={() => this.sayHello(this.state.colorArray[0])} color={this.state.colorArray[0]} />;
-
-    const block2 = <ColorFrame2 onClick={() => this.sayHello(this.state.colorArray[1])} color={this.state.colorArray[1]} />;
-
-    const block3 = <ColorFrame3 onClick={() => this.sayHello(this.state.colorArray[2])} color={this.state.colorArray[2]} />;
 
     function arraysEqual(a1, a2) {
       return JSON.stringify(a1) == JSON.stringify(a2);
     }
-
-    function shuffle(a) {
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-    let blocksArray = [block1, block2, block3];
-    shuffle(blocksArray);
 
     return (
       <div>
         <Chameleon style={{ backgroundColor: this.state.color }} name={this.state.color} />
 
         <div className="blocksDiv">
-          {blocksArray[0]}
-          {blocksArray[1]}
-          {blocksArray[2]}
-          {blocksArray[3]}
+          <ColorFrame1 onClick={() => this.sayHello(this.state.shuffledColorArray[0])} color={this.state.shuffledColorArray[0]} />
+          <ColorFrame2 onClick={() => this.sayHello(this.state.shuffledColorArray[1])} color={this.state.shuffledColorArray[1]} />
+          <ColorFrame3 onClick={() => this.sayHello(this.state.shuffledColorArray[2])} color={this.state.shuffledColorArray[2]} />
         </div>
 
         <button className="testButton" onClick={this.changeColor}>
