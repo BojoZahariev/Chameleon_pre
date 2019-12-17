@@ -14,7 +14,7 @@ class Chameleon extends React.Component {
 const ColorFrame1 = props => {
   return (
     <div className="blocks" style={props.style} onClick={props.onClick}>
-      <p>Part 1 is: {props.color}</p>
+      <p>RED: {props.color}</p>
     </div>
   );
 };
@@ -22,7 +22,7 @@ const ColorFrame1 = props => {
 const ColorFrame2 = props => {
   return (
     <div className="blocks" style={props.style} onClick={props.onClick}>
-      <p>Part 2 is: {props.color}</p>
+      <p>GREEN: {props.color}</p>
     </div>
   );
 };
@@ -30,25 +30,18 @@ const ColorFrame2 = props => {
 const ColorFrame3 = props => {
   return (
     <div className="blocks" style={props.style} onClick={props.onClick}>
-      <p>Part 3 is: {props.color}</p>
+      <p>BLUE: {props.color}</p>
     </div>
   );
 };
 
-/*
-class ColorMixer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="colorBar">
-        <ColorFrame1 color={'jjjj'} />
-      </div>
-    );
-  }
-}
-*/
+const ColorFrame4 = props => {
+  return (
+    <div className="blocks" style={props.style} onClick={props.onClick}>
+      <p>RED2: {props.color}</p>
+    </div>
+  );
+};
 
 class Container extends React.Component {
   constructor(props) {
@@ -56,6 +49,7 @@ class Container extends React.Component {
     this.state = {
       color: 'red',
       colorArray: [],
+      wrongColorArray: [],
       clickedBlocks: []
     };
 
@@ -75,10 +69,12 @@ class Container extends React.Component {
 
   changeColor() {
     let currentRGB = this.colorRGB();
+    let wrongRGB = this.colorRGB();
 
     this.setState({
       color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
-      colorArray: currentRGB
+      colorArray: currentRGB,
+      wrongColorArray: wrongRGB
     });
   }
 
@@ -123,7 +119,13 @@ class Container extends React.Component {
       />
     );
 
-    const block4 = <div>block4</div>;
+    const block4 = (
+      <ColorFrame4
+        onClick={() => this.sayHello(this.state.wrongColorArray[0])}
+        style={{ backgroundColor: 'rgb(' + this.state.wrongColorArray[0] + ',' + '00' + ',' + '00' + ')' }}
+        color={this.state.wrongColorArray[0]}
+      />
+    );
 
     function shuffle(a) {
       for (let i = a.length - 1; i > 0; i--) {
@@ -144,6 +146,7 @@ class Container extends React.Component {
           {blocksArray[1]}
           {blocksArray[2]}
           {blocksArray[3]}
+          {blocksArray[4]}
         </div>
 
         <button className="testButton" onClick={this.changeColor}>
