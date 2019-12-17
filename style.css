@@ -2,9 +2,14 @@
   position: relative;
 }
 
+.field {
+  height: 50vh;
+}
+
 .cham {
-  width: 200px;
-  height: 200px;
+  width: 70px;
+  height: 70px;
+  background-color: black;
 }
 
 .testButton {
@@ -20,6 +25,7 @@
   width: 100px;
   height: 50px;
   border: 1px solid #222;
+  background-color: azure;
 }
 
 .colorBar {
@@ -27,4 +33,13 @@
   margin: 20px auto;
   border: 2px solid #222;
   color: #222;
+  height: 70px;
+}
+
+.colorBarBlocks {
+  margin: 0;
+  width: 100px;
+  height: 100%;
+  border: 1px solid #222;
+  background-color: azure;
 }
