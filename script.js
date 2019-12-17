@@ -83,8 +83,6 @@ class Container extends React.Component {
   }
 
   sayHello(name) {
-    console.log(`hello, ${name}`);
-    console.log('TCL: Container -> sayHello -> clickedBlocks', this.state.clickedBlocks);
     if (this.state.clickedBlocks.length <= 2) {
       this.setState({
         clickedBlocks: this.state.clickedBlocks.concat(name)
@@ -97,31 +95,39 @@ class Container extends React.Component {
     console.log('TCL: Container -> render -> this.state.colorArray', this.state.colorArray);
 
     function arraysEqual(a1, a2) {
-      /* WARNING: arrays must not contain {objects} or behavior may be undefined */
       return JSON.stringify(a1) == JSON.stringify(a2);
     }
     const message = <p>Success</p>;
+
+    const block1 = (
+      <ColorFrame1
+        onClick={() => this.sayHello(this.state.colorArray[0])}
+        style={{ backgroundColor: 'rgb(' + this.state.colorArray[0] + ',' + '00' + ',' + '00' + ')' }}
+        color={this.state.colorArray[0]}
+      />
+    );
+
     return (
       <div>
         <Chameleon style={{ backgroundColor: this.state.color }} name={this.state.color} />
 
-        <ColorFrame1
-          onClick={() => this.sayHello(this.state.colorArray[0])}
-          style={{ backgroundColor: 'rgb(' + this.state.colorArray[0] + ',' + '00' + ',' + '00' + ')' }}
-          color={this.state.colorArray[0]}
-        />
-
-        <ColorFrame2
-          onClick={() => this.sayHello(this.state.colorArray[1])}
-          style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.colorArray[1] + ',' + '00' + ')' }}
-          color={this.state.colorArray[1]}
-        />
-        <ColorFrame3
-          onClick={() => this.sayHello(this.state.colorArray[2])}
-          style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.colorArray[2] + ')' }}
-          color={this.state.colorArray[2]}
-        />
-
+        <div className="blocksDiv">
+          <ColorFrame1
+            onClick={() => this.sayHello(this.state.colorArray[0])}
+            style={{ backgroundColor: 'rgb(' + this.state.colorArray[0] + ',' + '00' + ',' + '00' + ')' }}
+            color={this.state.colorArray[0]}
+          />
+          <ColorFrame2
+            onClick={() => this.sayHello(this.state.colorArray[1])}
+            style={{ backgroundColor: 'rgb(' + '00' + ',' + this.state.colorArray[1] + ',' + '00' + ')' }}
+            color={this.state.colorArray[1]}
+          />
+          <ColorFrame3
+            onClick={() => this.sayHello(this.state.colorArray[2])}
+            style={{ backgroundColor: 'rgb(' + '00' + ',' + '00' + ',' + this.state.colorArray[2] + ')' }}
+            color={this.state.colorArray[2]}
+          />
+        </div>
         <button className="testButton" onClick={this.changeColor}>
           START
         </button>
