@@ -106,35 +106,38 @@ class Container extends React.Component {
 
     return (
       <div>
+        <div className="blocksDiv">
+          <ColorFrame1 onClick={() => this.clickControl(this.state.shuffledColorArray[0])} color={this.state.shuffledColorArray[0]} />
+          <ColorFrame2 onClick={() => this.clickControl(this.state.shuffledColorArray[1])} color={this.state.shuffledColorArray[1]} />
+          <ColorFrame3 onClick={() => this.clickControl(this.state.shuffledColorArray[2])} color={this.state.shuffledColorArray[2]} />
+        </div>
+
         <div className="field" style={{ backgroundColor: this.state.color }}>
           {this.state.color}
+
           <Chameleon
             style={{
               backgroundColor: 'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'
             }}
           />
 
-          <div className="blocksDiv">
-            <ColorFrame1 onClick={() => this.clickControl(this.state.shuffledColorArray[0])} color={this.state.shuffledColorArray[0]} />
-            <ColorFrame2 onClick={() => this.clickControl(this.state.shuffledColorArray[1])} color={this.state.shuffledColorArray[1]} />
-            <ColorFrame3 onClick={() => this.clickControl(this.state.shuffledColorArray[2])} color={this.state.shuffledColorArray[2]} />
-          </div>
-
-          <button className="testButton" onClick={this.changeColor}>
-            START
-          </button>
-
-          <div className="colorBar">
-            <p className="colorBarBlocks">{this.state.clickedBlocks[0]}</p>
-            <p className="colorBarBlocks">{this.state.clickedBlocks[1]}</p>
-            <p className="colorBarBlocks">{this.state.clickedBlocks[2]}</p>
-          </div>
-
           {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
-            <Message mess={'Yay'} /> /*do it with element*/
+            <Message mess={'Yay'} />
+          ) : this.state.clickedBlocks.length >= 3 ? (
+            <Message mess={'nope'} />
           ) : (
             <Message mess={'Save me'} />
           )}
+        </div>
+
+        <button className="testButton" onClick={this.changeColor}>
+          START
+        </button>
+
+        <div className="colorBar">
+          <p className="colorBarBlocks">{this.state.clickedBlocks[0]}</p>
+          <p className="colorBarBlocks">{this.state.clickedBlocks[1]}</p>
+          <p className="colorBarBlocks">{this.state.clickedBlocks[2]}</p>
         </div>
       </div>
     );
