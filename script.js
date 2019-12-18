@@ -43,6 +43,10 @@ const Message = props => {
   );
 };
 
+const ActionButton = props => {
+  return <button onClick={props.onClick}>{props.text}</button>;
+};
+
 class Container extends React.Component {
   constructor(props) {
     super(props);
@@ -120,19 +124,23 @@ class Container extends React.Component {
               backgroundColor: 'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'
             }}
           />
-
-          {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
-            <Message mess={'Yay'} />
-          ) : this.state.clickedBlocks.length >= 3 ? (
-            <Message mess={'nope'} />
-          ) : (
-            <Message mess={'Save me'} />
-          )}
         </div>
 
-        <button className="testButton" onClick={this.changeColor}>
-          START
-        </button>
+        {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
+          <Message mess={'Well Done'} />
+        ) : this.state.clickedBlocks.length >= 3 ? (
+          <Message mess={'Wrong color'} />
+        ) : (
+          <Message mess={'Save me'} />
+        )}
+
+        {this.state.clickedBlocks.length < 3 ? (
+          <ActionButton onClick={this.changeColor} text={'Start'} />
+        ) : arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
+          <ActionButton onClick={this.changeColor} text={'Next Round'} />
+        ) : (
+          <ActionButton onClick={this.changeColor} text={'Try Again'} />
+        )}
 
         <div className="colorBar">
           <p className="colorBarBlocks">{this.state.clickedBlocks[0]}</p>
