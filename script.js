@@ -35,6 +35,14 @@ const ColorFrame3 = props => {
   );
 };
 
+const Message = props => {
+  return (
+    <div>
+      <p>{props.mess}</p>
+    </div>
+  );
+};
+
 class Container extends React.Component {
   constructor(props) {
     super(props);
@@ -92,8 +100,6 @@ class Container extends React.Component {
   }
 
   render() {
-    const message = <p>Success</p>;
-
     function arraysEqual(a1, a2) {
       return JSON.stringify(a1) == JSON.stringify(a2);
     }
@@ -124,7 +130,11 @@ class Container extends React.Component {
             <p className="colorBarBlocks">{this.state.clickedBlocks[2]}</p>
           </div>
 
-          {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? message : <p>nope</p>}
+          {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
+            <Message mess={'Yay'} /> /*do it with element*/
+          ) : (
+            <Message mess={'Save me'} />
+          )}
         </div>
       </div>
     );
