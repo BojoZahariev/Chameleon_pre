@@ -79,12 +79,14 @@ class Container extends React.Component {
       colorArray: [],
       shuffledColorArray: [],
       clickedBlocks: [],
-      block1Clicked: false
+      block1Clicked: false,
+      score: 0
     };
 
     this.changeColor = this.changeColor.bind(this);
     this.clickControl = this.clickControl.bind(this);
     this.shuffleColors = this.shuffleColors.bind(this);
+    this.scoreControl = this.scoreControl.bind(this);
   }
 
   colorRGB = () => {
@@ -107,20 +109,26 @@ class Container extends React.Component {
 
   changeColor() {
     let currentRGB = this.colorRGB();
-    let ff = [...currentRGB];
-    let test = this.shuffleColors(ff);
+    let shuffledArray = [...currentRGB];
+    let shuffledArray2 = this.shuffleColors(shuffledArray);
 
     this.setState({
       color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
       colorArray: currentRGB,
-      shuffledColorArray: test,
+      shuffledColorArray: shuffledArray2,
       clickedBlocks: [],
       block1Clicked: false,
       block2Clicked: false,
       block3Clicked: false
     });
 
-    console.log(this.state.clickedBlocks);
+    if (JSON.stringify(this.state.colorArray) == JSON.stringify(this.state.clickedBlocks) && this.state.clickedBlocks.length !== 0) {
+      this.setState(state => ({
+        score: state.score + 1
+      }));
+
+      console.log('ding');
+    }
   }
 
   clickControl(name, block) {
@@ -143,6 +151,12 @@ class Container extends React.Component {
         clickedBlocks: this.state.clickedBlocks.concat(name)
       });
     }
+  }
+
+  scoreControl() {
+    this.setState(state => ({
+      score: state.count + 1
+    }));
   }
 
   render() {
@@ -196,6 +210,7 @@ class Container extends React.Component {
           <ActionButton onClick={this.changeColor} text={'Try Again'} />
         )}
 
+        <p>Score: {this.state.score}</p>
         <div className="colorBar">
           <p className="colorBarBlocks">{this.state.clickedBlocks[0]}</p>
           <p className="colorBarBlocks">{this.state.clickedBlocks[1]}</p>
