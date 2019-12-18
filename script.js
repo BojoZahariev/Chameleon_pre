@@ -12,27 +12,51 @@ class Chameleon extends React.Component {
 }
 
 const ColorFrame1 = props => {
-  return (
-    <div className="blocks" onClick={props.onClick}>
-      <p>{props.color}</p>
-    </div>
-  );
+  if (props.clicked) {
+    return (
+      <div className="blocks">
+        <p>Clicked</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="blocks" onClick={props.onClick}>
+        <p>{props.color}</p>
+      </div>
+    );
+  }
 };
 
 const ColorFrame2 = props => {
-  return (
-    <div className="blocks" onClick={props.onClick}>
-      <p>{props.color}</p>
-    </div>
-  );
+  if (props.clicked) {
+    return (
+      <div className="blocks">
+        <p>Clicked</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="blocks" onClick={props.onClick}>
+        <p>{props.color}</p>
+      </div>
+    );
+  }
 };
 
 const ColorFrame3 = props => {
-  return (
-    <div className="blocks" onClick={props.onClick}>
-      <p>{props.color}</p>
-    </div>
-  );
+  if (props.clicked) {
+    return (
+      <div className="blocks">
+        <p>Clicked</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="blocks" onClick={props.onClick}>
+        <p>{props.color}</p>
+      </div>
+    );
+  }
 };
 
 const Message = props => {
@@ -54,7 +78,8 @@ class Container extends React.Component {
       color: 'green',
       colorArray: [],
       shuffledColorArray: [],
-      clickedBlocks: []
+      clickedBlocks: [],
+      block1Clicked: false
     };
 
     this.changeColor = this.changeColor.bind(this);
@@ -89,14 +114,31 @@ class Container extends React.Component {
       color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
       colorArray: currentRGB,
       shuffledColorArray: test,
-      clickedBlocks: []
+      clickedBlocks: [],
+      block1Clicked: false,
+      block2Clicked: false,
+      block3Clicked: false
     });
 
     console.log(this.state.clickedBlocks);
   }
 
-  clickControl(name) {
+  clickControl(name, block) {
     if (this.state.clickedBlocks.length < 3) {
+      if (block === 1) {
+        this.setState({
+          block1Clicked: true
+        });
+      } else if (block === 2) {
+        this.setState({
+          block2Clicked: true
+        });
+      } else if (block === 3) {
+        this.setState({
+          block3Clicked: true
+        });
+      }
+
       this.setState({
         clickedBlocks: this.state.clickedBlocks.concat(name)
       });
@@ -104,16 +146,28 @@ class Container extends React.Component {
   }
 
   render() {
-    function arraysEqual(a1, a2) {
+    const arraysEqual = (a1, a2) => {
       return JSON.stringify(a1) == JSON.stringify(a2);
-    }
+    };
 
     return (
       <div>
         <div className="blocksDiv">
-          <ColorFrame1 onClick={() => this.clickControl(this.state.shuffledColorArray[0])} color={this.state.shuffledColorArray[0]} />
-          <ColorFrame2 onClick={() => this.clickControl(this.state.shuffledColorArray[1])} color={this.state.shuffledColorArray[1]} />
-          <ColorFrame3 onClick={() => this.clickControl(this.state.shuffledColorArray[2])} color={this.state.shuffledColorArray[2]} />
+          <ColorFrame1
+            onClick={() => this.clickControl(this.state.shuffledColorArray[0], 1)}
+            color={this.state.shuffledColorArray[0]}
+            clicked={this.state.block1Clicked}
+          />
+          <ColorFrame2
+            onClick={() => this.clickControl(this.state.shuffledColorArray[1], 2)}
+            color={this.state.shuffledColorArray[1]}
+            clicked={this.state.block2Clicked}
+          />
+          <ColorFrame3
+            onClick={() => this.clickControl(this.state.shuffledColorArray[2], 3)}
+            color={this.state.shuffledColorArray[2]}
+            clicked={this.state.block3Clicked}
+          />
         </div>
 
         <div className="field" style={{ backgroundColor: this.state.color }}>
