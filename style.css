@@ -45,8 +45,36 @@
 }
 
 .svg {
-  width: 300px;
-  /*
-  fill: #94ecbe;
-  */
+  width: 400px;
+  fill: #629677;
+}
+
+#iris {
+  fill: #000;
+}
+
+.eye {
+  -webkit-animation-name: blink;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+
+  animation-name: blink;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+
+  /* Finish changes by here */
+  10% {
+    opacity: 1;
+  }
+
+  /* Between 20% and 100%, nothing changes */
+  100% {
+    opacity: 1;
+  }
 }
