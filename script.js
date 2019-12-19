@@ -47,11 +47,7 @@ const ColorFrame3 = props => {
 };
 
 const Message = props => {
-  return (
-    <div>
-      <p>{props.mess}</p>
-    </div>
-  );
+  return <div className="speechBubble">{props.mess}</div>;
 };
 
 const ActionButton = props => {
@@ -63,7 +59,7 @@ const Chameleon = props => {
     <svg className="svg" viewBox="0 0 744.09447 1052.362179" xmlns="http://www.w3.org/2000/svg">
       <path
         d="m198.57 458.79-0.7143-8.5714 14.286-27.143 10.714-32.857 4.2857-6.4286 11.429-6.4286 18.571-6.4286 24.286-12.143 16.429-4.2857 4.2857-9.2857 7.8571-12.143 12.857-4.2857 3.5714 5 10.714-17.143 5.7143 7.1429 15.714-15.714 7.1429 11.429 18.571-14.286 2.1429 10 15.714-7.8571 2.1429 10.714 18.571-0.7143 0.7143 7.8571 18.571 1.4286-2.1429 7.8571 13.571 2.8571v10l20.714 3.5714-1.4286 8.5714 15 7.8571-5 7.8571 15 5.7143-4.2857 6.4286 18.571 10.714-5.7143 7.1429 17.143 10-1.4286 7.1429 10 9.2857-0.7143 6.4286 12.143 14.286-6.4286 2.8571 19.286 41.429 7.8571 27.143 0.7143 32.857-14.286 33.571-27.143 19.286-22.143 5.7143-30.714-14.286-13.571-25-1.4286-31.429 10.714-32.143 17.143-24.286 16.429-3.5714 20 6.4286 15 27.143-1.4286 21.429-10.714 22.857-16.429 2.8571-13.571-5.7143-7.8571-15 1.4286-12.857 4.2857-10 7.8571-0.7143 8.5714 3.5714 3.5714 8.5714-5 5-7.1429 3.5714"
-        fill="none" /*branch*/
+        fill="#222" /*outline*/
         stroke="#000"
       />
       <path d="m199.51 458.9 4.0406 2.5254 26.264-12.122 50.508-3.5355 15.657-14.647v-0.5051" fill="none" stroke="#000" />
@@ -217,12 +213,11 @@ class Container extends React.Component {
       block3Clicked: false
     });
 
+    //score
     if (JSON.stringify(this.state.colorArray) == JSON.stringify(this.state.clickedBlocks) && this.state.clickedBlocks.length) {
       this.setState(state => ({
         score: state.score + 1
       }));
-
-      console.log('ding');
     }
   }
 
@@ -280,18 +275,16 @@ class Container extends React.Component {
         </div>
 
         <div className="field" style={{ backgroundColor: this.state.color }}>
-          {this.state.color}
-
           <Chameleon color={'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'} />
-        </div>
 
-        {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
-          <Message mess={'Well Done'} />
-        ) : this.state.clickedBlocks.length >= 3 ? (
-          <Message mess={'Wrong color'} />
-        ) : (
-          <Message mess={'Save me'} />
-        )}
+          {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
+            <Message mess={'Much better, Thank you!'} />
+          ) : this.state.clickedBlocks.length >= 3 ? (
+            <Message mess={'Nope, wrong color!'} />
+          ) : (
+            <Message mess={'Help me hide please!'} />
+          )}
+        </div>
 
         {this.state.clickedBlocks.length < 3 ? (
           <ActionButton onClick={this.changeColor} text={'Start'} />
@@ -308,6 +301,8 @@ class Container extends React.Component {
           <p className="colorBarBlocks">{this.state.clickedBlocks[1]}</p>
           <p className="colorBarBlocks">{this.state.clickedBlocks[2]}</p>
         </div>
+
+        <p> {this.state.color}</p>
       </div>
     );
   }
