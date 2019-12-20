@@ -8,6 +8,7 @@
   width: 50vw;
   position: relative;
   margin: 20px auto;
+  transition: all 1s;
 }
 
 .blocksDiv {
@@ -19,25 +20,44 @@
   color: #222;
   width: 100px;
   height: 50px;
+  line-height: 50px;
   margin: 10px;
   border: 1px solid #222;
-  background-color: azure;
+  background-color: #222;
+  cursor: pointer;
 }
 
-.colorBar {
-  display: flex;
-  justify-content: center;
-  margin: 20px auto;
+.blocksText {
   color: #222;
-  height: 70px;
+  background-color: #fff;
+  height: 100%;
+  font-size: 25px;
+  font-weight: 600;
+
+  -webkit-animation-name: expand;
+  -webkit-animation-duration: 1s;
+  animation-name: expand;
+  animation-duration: 1s;
 }
 
-.colorBarBlocks {
-  margin: 10px;
-  width: 100px;
-  height: 100%;
-  border: 1px solid #222;
-  background-color: azure;
+@keyframes expand {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes expand {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .svg {
@@ -148,4 +168,36 @@
   border-bottom: 10px solid transparent;
   right: 50%;
   bottom: -18px;
+}
+
+.colorBar {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  color: #222;
+  height: 70px;
+  line-height: 70px;
+}
+
+.colorBarBlocks {
+  margin: 10px;
+  width: 100px;
+  height: 100%;
+  border: 1px solid #222;
+  color: #fff;
+  text-shadow: 0px 0px 3px #000, -1px -1px #000, 1px 1px #000;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+#colorBarBlock1 {
+  background-color: red;
+}
+
+#colorBarBlock2 {
+  background-color: green;
+}
+
+#colorBarBlock3 {
+  background-color: blue;
 }
