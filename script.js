@@ -1,59 +1,3 @@
-const ColorFrame1 = props => {
-  if (props.clicked) {
-    return (
-      <div className="blocks">
-        <p>Clicked</p>
-      </div>
-    );
-  } else {
-    return (
-      <div className="blocks" onClick={props.onClick}>
-        <p>{props.color}</p>
-      </div>
-    );
-  }
-};
-
-const ColorFrame2 = props => {
-  if (props.clicked) {
-    return (
-      <div className="blocks">
-        <p>Clicked</p>
-      </div>
-    );
-  } else {
-    return (
-      <div className="blocks" onClick={props.onClick}>
-        <p>{props.color}</p>
-      </div>
-    );
-  }
-};
-
-const ColorFrame3 = props => {
-  if (props.clicked) {
-    return (
-      <div className="blocks">
-        <p>Clicked</p>
-      </div>
-    );
-  } else {
-    return (
-      <div className="blocks" onClick={props.onClick}>
-        <p>{props.color}</p>
-      </div>
-    );
-  }
-};
-
-const Message = props => {
-  return <div className="speechBubble speechBubbleAnimated">{props.mess}</div>;
-};
-
-const ActionButton = props => {
-  return <button onClick={props.onClick}>{props.text}</button>;
-};
-
 const Chameleon = props => {
   return (
     <svg className="svg" viewBox="0 0 421 325" width="421" height="325" xmlns="http://www.w3.org/2000/svg">
@@ -170,11 +114,67 @@ const Chameleon = props => {
   );
 };
 
+const ColorFrame1 = props => {
+  if (props.clicked) {
+    return (
+      <div className="blocks">
+        <p></p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="blocks" onClick={props.onClick}>
+        <p className="blocksText">{props.color}</p>
+      </div>
+    );
+  }
+};
+
+const ColorFrame2 = props => {
+  if (props.clicked) {
+    return (
+      <div className="blocks">
+        <p></p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="blocks" onClick={props.onClick}>
+        <p className="blocksText">{props.color}</p>
+      </div>
+    );
+  }
+};
+
+const ColorFrame3 = props => {
+  if (props.clicked) {
+    return (
+      <div className="blocks">
+        <p></p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="blocks" onClick={props.onClick}>
+        <p className="blocksText">{props.color}</p>
+      </div>
+    );
+  }
+};
+
+const Message = props => {
+  return <div className="speechBubble speechBubbleAnimated">{props.mess}</div>;
+};
+
+const ActionButton = props => {
+  return <button onClick={props.onClick}>{props.text}</button>;
+};
+
 class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: 'green',
+      color: '#72A98F',
       colorArray: [],
       shuffledColorArray: [],
       clickedBlocks: [],
@@ -223,7 +223,7 @@ class Container extends React.Component {
   }
 
   clickControl(name, block) {
-    if (this.state.clickedBlocks.length < 3) {
+    if (this.state.clickedBlocks.length < 3 && this.state.shuffledColorArray.length) {
       if (block === 1) {
         this.setState({
           block1Clicked: true
@@ -260,6 +260,14 @@ class Container extends React.Component {
   render() {
     return (
       <div>
+        {this.state.clickedBlocks.length < 3 ? (
+          <ActionButton onClick={this.changeColor} text={'Start'} />
+        ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
+          <ActionButton onClick={this.changeColor} text={'Next Round'} />
+        ) : (
+          <ActionButton onClick={this.changeColor} text={'Try Again'} />
+        )}
+
         <div className="blocksDiv">
           <ColorFrame1
             onClick={() => this.clickControl(this.state.shuffledColorArray[0], 1)}
@@ -290,20 +298,18 @@ class Container extends React.Component {
           )}
         </div>
 
-        {this.state.clickedBlocks.length < 3 ? (
-          <ActionButton onClick={this.changeColor} text={'Start'} />
-        ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
-          <ActionButton onClick={this.changeColor} text={'Next Round'} />
-        ) : (
-          <ActionButton onClick={this.changeColor} text={'Try Again'} />
-        )}
-
         <p>Score: {this.state.score}</p>
 
         <div className="colorBar">
-          <p className="colorBarBlocks">{this.state.clickedBlocks[0]}</p>
-          <p className="colorBarBlocks">{this.state.clickedBlocks[1]}</p>
-          <p className="colorBarBlocks">{this.state.clickedBlocks[2]}</p>
+          <p id="colorBarBlock1" className="colorBarBlocks">
+            {this.state.clickedBlocks[0]}
+          </p>
+          <p id="colorBarBlock2" className="colorBarBlocks">
+            {this.state.clickedBlocks[1]}
+          </p>
+          <p id="colorBarBlock3" className="colorBarBlocks">
+            {this.state.clickedBlocks[2]}
+          </p>
         </div>
 
         <p> {this.state.color}</p>
