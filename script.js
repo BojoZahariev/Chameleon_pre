@@ -177,7 +177,7 @@ class Container extends React.Component {
     this.changeColor = this.changeColor.bind(this);
     this.clickControl = this.clickControl.bind(this);
     this.shuffleColors = this.shuffleColors.bind(this);
-    this.scoreControl = this.scoreControl.bind(this);
+    this.arraysEqual = this.arraysEqual.bind(this);
   }
 
   colorRGB = () => {
@@ -212,13 +212,6 @@ class Container extends React.Component {
       block2Clicked: false,
       block3Clicked: false
     });
-
-    //score
-    if (JSON.stringify(this.state.colorArray) == JSON.stringify(this.state.clickedBlocks) && this.state.clickedBlocks.length) {
-      this.setState(state => ({
-        score: state.score + 1
-      }));
-    }
   }
 
   clickControl(name, block) {
@@ -241,19 +234,22 @@ class Container extends React.Component {
         clickedBlocks: this.state.clickedBlocks.concat(name)
       });
     }
+
+    //score
+    let arr1 = [this.state.colorArray[0], this.state.colorArray[1]];
+    let arr2 = [this.state.clickedBlocks[0], this.state.clickedBlocks[1]];
+    if (this.arraysEqual(arr1, arr2) && this.state.clickedBlocks.length) {
+      this.setState(state => ({
+        score: state.score + 1
+      }));
+    }
   }
 
-  scoreControl() {
-    this.setState(state => ({
-      score: state.count + 1
-    }));
-  }
+  arraysEqual = (a1, a2) => {
+    return JSON.stringify(a1) == JSON.stringify(a2);
+  };
 
   render() {
-    const arraysEqual = (a1, a2) => {
-      return JSON.stringify(a1) == JSON.stringify(a2);
-    };
-
     return (
       <div>
         <div className="blocksDiv">
@@ -277,7 +273,7 @@ class Container extends React.Component {
         <div className="field" style={{ backgroundColor: this.state.color }}>
           <Chameleon color={'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'} />
 
-          {arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
+          {this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
             <Message mess={'Much better, Thank you!'} />
           ) : this.state.clickedBlocks.length >= 3 ? (
             <Message mess={'Nope, wrong color!'} />
@@ -288,7 +284,7 @@ class Container extends React.Component {
 
         {this.state.clickedBlocks.length < 3 ? (
           <ActionButton onClick={this.changeColor} text={'Start'} />
-        ) : arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
+        ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
           <ActionButton onClick={this.changeColor} text={'Next Round'} />
         ) : (
           <ActionButton onClick={this.changeColor} text={'Try Again'} />
