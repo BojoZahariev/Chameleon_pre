@@ -1,11 +1,13 @@
 #root {
   position: relative;
+  text-align: center;
 }
 
 .field {
   height: 50vh;
   width: 50vw;
   position: relative;
+  margin: 20px auto;
 }
 
 .testButton {
@@ -14,6 +16,7 @@
 
 .blocksDiv {
   display: flex;
+  justify-content: center;
 }
 
 .blocks {
@@ -26,6 +29,7 @@
 
 .colorBar {
   display: flex;
+  justify-content: center;
   margin: 20px auto;
   color: #222;
   height: 70px;
@@ -40,12 +44,13 @@
 }
 
 .svg {
-  width: 450px;
+  width: 300px;
   height: auto;
   fill: #629677;
   position: absolute;
   left: 0;
   right: 0;
+  bottom: 30px;
   margin: auto;
 }
 
@@ -104,6 +109,22 @@
   top: 20px;
   left: 15%;
   background-color: #fff;
+}
+
+.speechBubbleAnimated {
+  animation-name: pop;
+  animation-duration: 1s;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    top: 50px;
+  }
+  to {
+    opacity: 1;
+    top: 20px;
+  }
 }
 
 .speechBubble:before {
