@@ -272,9 +272,9 @@ class Container extends React.Component {
     return (
       <div>
         {!this.state.gameStarted ? (
-          <p className='blocksDivText'>Meet Dalto, he is a color blind chameleon. He needs your help to hide from the poachers.</p>
+          <p className='blocksDivText'>Dalto is a color blind chameleon. He needs your help to hide from the poachers.</p>
         ) : (
-          <p className='blocksDivText'>Choose the RED, GREEN and BLUE values</p>
+          <p className='blocksDivText'>Choose the RED, GREEN and BLUE RGB values in the right order.</p>
         )}
 
         {this.state.gameStarted && (
@@ -320,7 +320,9 @@ class Container extends React.Component {
             <Message mess={'Help me hide please!'} />
           )}
         </div>
-        <p>Score: {this.state.score}</p>
+
+        <p className='score'>Score: {this.state.score}</p>
+
         <div className='colorBar'>
           RGB(
           <p id='colorBarBlock1' className='colorBarBlocks'>
@@ -336,6 +338,7 @@ class Container extends React.Component {
           </p>
           )
         </div>
+
         <p> {this.state.color}</p>
       </div>
     );
