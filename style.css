@@ -1,6 +1,7 @@
 #root {
   position: relative;
   text-align: center;
+  font-family: 'Gothic A1', sans-serif;
 }
 
 .field {
@@ -11,7 +12,12 @@
   transition: all 1s;
 }
 
+.blocksDivText {
+  margin-top: 20px;
+}
+
 .blocksDiv {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
 }
@@ -119,9 +125,9 @@
   border: 4px solid #222;
   padding: 40px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
   color: #222;
-  font-family: arial;
+  font-family: 'Gothic A1', sans-serif;
   position: absolute;
   top: 20px;
   left: 15%;
@@ -129,11 +135,24 @@
 }
 
 .speechBubbleAnimated {
+  -webkit-animation-name: pop;
+  -webkit-animation-duration: 1s;
   animation-name: pop;
   animation-duration: 1s;
 }
 
 @keyframes pop {
+  from {
+    opacity: 0;
+    top: 50px;
+  }
+  to {
+    opacity: 1;
+    top: 20px;
+  }
+}
+
+@-webkit-keyframes pop {
   from {
     opacity: 0;
     top: 50px;
@@ -191,13 +210,13 @@
 }
 
 #colorBarBlock1 {
-  background-color: red;
+  background-color: #e50d2c;
 }
 
 #colorBarBlock2 {
-  background-color: green;
+  background-color: #7dc074;
 }
 
 #colorBarBlock3 {
-  background-color: blue;
+  background-color: #58a3ce;
 }
