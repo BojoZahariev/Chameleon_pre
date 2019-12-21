@@ -7,25 +7,24 @@ body {
   position: relative;
   text-align: center;
   font-family: 'Alice', serif;
-
   color: #001427;
 }
 
 .field {
-  height: 50vh;
+  height: 49vh;
   width: 50vw;
   position: relative;
   margin: 20px auto;
   transition: all 1s;
-  border: 1px solid #222;
+  border: 2px solid #222;
 }
 
 .blocksDivText {
   margin: 0px auto 30px;
-  padding-top: 30px;
+  padding: 10px 10px;
   width: 50%;
   font-size: 35px;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .blocksDiv {
@@ -228,7 +227,7 @@ body {
   position: absolute;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid #fff;
+  border-top: 10px solid #faf6f6;
   border-bottom: 10px solid transparent;
   right: 50%;
   bottom: -18px;
@@ -281,4 +280,94 @@ body {
   font-size: 4vw;
   padding: 0px 10px;
   font-family: 'Lakki Reddy', cursive;
+}
+
+/*MEDIA*/
+
+@media only screen and (max-width: 992px) {
+  .field {
+    height: 40vh;
+    width: 100%;
+    position: relative;
+
+    transition: all 1s;
+    border: 2px solid #222;
+  }
+
+  .blocksDivText {
+    margin: 0px auto 20px;
+    padding: 20px 10px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .blocksDiv {
+    margin-top: 10px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    transition: all 1s;
+  }
+
+  .blocks {
+    width: 110px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 40px;
+  }
+
+  .actionBtn {
+    width: 100px;
+    line-height: 30px;
+    padding: 5px;
+    font-size: 18px;
+  }
+
+  .blocks:hover {
+    font-size: 20px;
+  }
+
+  .svg {
+    width: 250px;
+  }
+
+  .speechBubble {
+    width: 200px;
+    padding: 40px;
+  }
+
+  .colorBar {
+    margin: 10px auto;
+
+    height: 60px;
+    line-height: 75px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .colorBarBlocks {
+    width: 80px;
+    margin: 5px;
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 576px) {
+  .svg {
+    width: 200px;
+  }
+
+  .speechBubble {
+    width: 100px;
+    padding: 12px;
+    font-size: 20px;
+    top: 10px;
+    left: 30%;
+    border: 2px solid #222;
+  }
+
+  .speechBubble:before {
+    bottom: -20px;
+  }
 }
