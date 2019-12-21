@@ -1,7 +1,14 @@
+body {
+  background-color: #edf2f4;
+}
+
 #root {
+  height: 100vh;
   position: relative;
   text-align: center;
   font-family: 'Alice', serif;
+
+  color: #001427;
 }
 
 .field {
@@ -14,9 +21,11 @@
 }
 
 .blocksDivText {
-  margin: 20px auto;
+  margin: 0px auto 30px;
+  padding-top: 30px;
   width: 50%;
-  font-size: 25px;
+  font-size: 35px;
+  font-weight: 500;
 }
 
 .blocksDiv {
@@ -28,23 +37,36 @@
 }
 
 .blocks {
-  color: #222;
+  color: #001427;
   background-color: #f5f2b8;
-  width: 100px;
+  border-radius: 5px;
+  width: 150px;
   height: 100%;
   margin: 0px 10px;
   border: 1px solid #222;
   font-size: 25px;
   font-weight: 600;
   line-height: 50px;
-
   cursor: pointer;
+
+  -webkit-box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
+  -moz-box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
+  box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
 
   -webkit-animation-name: expand;
   -webkit-animation-duration: 1s;
   animation-name: expand;
   animation-duration: 1s;
-  transition: all 1s;
+}
+
+.blocks:hover {
+  font-size: 35px;
+}
+
+.blocks:active {
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
+  box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
 }
 
 @keyframes expand {
@@ -75,7 +97,16 @@
   line-height: 30px;
   margin: 20px auto;
   font-size: 20px;
-  background-color: #f9dad0;
+  background-color: #fe9920;
+  -webkit-box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
+  -moz-box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
+  box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
+}
+
+.actionBtn:active {
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
+  box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
 }
 
 .svg {
@@ -139,12 +170,13 @@
   text-align: center;
   font-size: 25px;
   font-family: 'Lakki Reddy', cursive;
-  color: #222;
-
+  color: #001427;
   position: absolute;
   top: 20px;
-  left: 15%;
-  background-color: #fff;
+
+  left: 40%;
+  transform: translateX(-50%);
+  background-color: #faf6f6;
 }
 
 .speechBubbleAnimated {
@@ -206,11 +238,16 @@
   display: flex;
   justify-content: center;
   margin: 20px auto;
-  color: #222;
+  color: #001427;
   height: 70px;
   line-height: 85px;
   font-size: 30px;
   font-weight: 600;
+}
+
+.score {
+  font-size: 25px;
+  color: #001427;
 }
 
 .colorBarBlocks {
