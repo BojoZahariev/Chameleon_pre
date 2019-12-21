@@ -272,7 +272,9 @@ class Container extends React.Component {
     return (
       <div>
         {!this.state.gameStarted ? (
-          <p className='blocksDivText'>Dalto is a color blind chameleon. He needs your help to hide from the poachers.</p>
+          <p className='blocksDivText'>
+            Dalto is a color blind chameleon. <br /> Help him to hide from the poachers.
+          </p>
         ) : (
           <p className='blocksDivText'>Choose the RED, GREEN and BLUE RGB values in the right order.</p>
         )}
@@ -340,6 +342,8 @@ class Container extends React.Component {
         </div>
 
         <p> {this.state.color}</p>
+
+        <p className='title'>Dalto</p>
       </div>
     );
   }
