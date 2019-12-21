@@ -194,7 +194,10 @@ class Container extends React.Component {
       shuffledColorArray: [],
       clickedBlocks: [],
       block1Clicked: false,
-      score: 0
+      block2Clicked: false,
+      block3Clicked: false,
+      score: 0,
+      gameStarted: false
     };
 
     this.changeColor = this.changeColor.bind(this);
@@ -233,7 +236,8 @@ class Container extends React.Component {
       clickedBlocks: [],
       block1Clicked: false,
       block2Clicked: false,
-      block3Clicked: false
+      block3Clicked: false,
+      gameStarted: true
     });
   }
 
@@ -295,8 +299,10 @@ class Container extends React.Component {
           />
         </div>
 
-        {this.state.clickedBlocks.length < 3 ? (
-          <ActionButton onClick={this.changeColor} text={'Start'} />
+        {!this.state.gameStarted ? (
+          <ActionButton onClick={this.changeColor} text={'Start Game'} />
+        ) : this.state.clickedBlocks.length < 3 ? (
+          <ActionButton onClick={this.changeColor} text={'Restart'} />
         ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
           <ActionButton onClick={this.changeColor} text={'Next Round'} />
         ) : (
