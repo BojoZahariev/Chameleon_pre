@@ -162,9 +162,24 @@ const ColorFrame3 = props => {
   }
 };
 
-const Message = props => {
-  return <div className="speechBubble speechBubbleAnimated">{props.mess}</div>;
-};
+class Message extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      animation: false
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.mess !== prevProps.mess) {
+      this.setState({ animation: !this.state.animation });
+    }
+  }
+
+  render() {
+    return <div className={`speechBubble ${this.state.animation && 'speechBubbleAnimated'}`}>{this.props.mess}</div>;
+  }
+}
 
 const ActionButton = props => {
   return <button onClick={props.onClick}>{props.text}</button>;
@@ -260,13 +275,7 @@ class Container extends React.Component {
   render() {
     return (
       <div>
-        {this.state.clickedBlocks.length < 3 ? (
-          <ActionButton onClick={this.changeColor} text={'Start'} />
-        ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
-          <ActionButton onClick={this.changeColor} text={'Next Round'} />
-        ) : (
-          <ActionButton onClick={this.changeColor} text={'Try Again'} />
-        )}
+        <p className="blocksDivText">Choose RED, GREEN and BLUE values</p>
 
         <div className="blocksDiv">
           <ColorFrame1
@@ -286,11 +295,19 @@ class Container extends React.Component {
           />
         </div>
 
+        {this.state.clickedBlocks.length < 3 ? (
+          <ActionButton onClick={this.changeColor} text={'Start'} />
+        ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
+          <ActionButton onClick={this.changeColor} text={'Next Round'} />
+        ) : (
+          <ActionButton onClick={this.changeColor} text={'Try Again'} />
+        )}
+
         <div className="field" style={{ backgroundColor: this.state.color }}>
           <Chameleon color={'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'} />
 
           {this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
-            <Message mess={'Much better, Thank you!'} />
+            <Message mess={"That's it, thank you!"} />
           ) : this.state.clickedBlocks.length >= 3 ? (
             <Message mess={'Nope, wrong color!'} />
           ) : (
