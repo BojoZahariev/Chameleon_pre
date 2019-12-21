@@ -273,3 +273,11 @@ body {
 #colorBarBlock3 {
   background-color: #58a3ce;
 }
+
+.title {
+  position: absolute;
+  bottom: 0;
+  color: #fdfffc;
+  font-size: 4vw;
+  padding: 10px;
+}
