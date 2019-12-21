@@ -160,7 +160,9 @@ class Message extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.mess !== prevProps.mess) {
-      this.setState({ animation: !this.state.animation });
+      this.setState({
+        animation: !this.state.animation
+      });
     }
   }
 
