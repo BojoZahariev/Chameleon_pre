@@ -277,7 +277,8 @@ body {
 .title {
   position: absolute;
   bottom: 0;
-  color: #fdfffc;
+  color: #72a98f;
   font-size: 4vw;
-  padding: 10px;
+  padding: 0px 10px;
+  font-family: 'Lakki Reddy', cursive;
 }
