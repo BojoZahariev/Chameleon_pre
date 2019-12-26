@@ -171,7 +171,7 @@ class Message extends React.Component {
   }
 }
 
-const ActionBtnRGB = props => {
+const ActionBtn = props => {
   return (
     <div className='actionBtn' onClick={props.onClick}>
       {props.text}
@@ -179,18 +179,43 @@ const ActionBtnRGB = props => {
   );
 };
 
-const ActionBtnHEX = props => {
-  return (
-    <div className='actionBtn' onClick={props.onClick}>
-      {props.text}
-    </div>
-  );
+const ModeBtnRGB = props => {
+  if (props.clicked === 'rgb') {
+    return (
+      <div className='modeBtn modeBtnClicked' onClick={props.onClick}>
+        RGB
+      </div>
+    );
+  } else {
+    return (
+      <div className='modeBtn' onClick={props.onClick}>
+        RGB
+      </div>
+    );
+  }
+};
+
+const ModeBtnHEX = props => {
+  if (props.clicked === 'hex') {
+    return (
+      <div className='modeBtn modeBtnClicked' onClick={props.onClick}>
+        HEX
+      </div>
+    );
+  } else {
+    return (
+      <div className='modeBtn' onClick={props.onClick}>
+        HEX
+      </div>
+    );
+  }
 };
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      gameStarted: false,
       color: '#A4CAA2',
       colorArray: [],
       shuffledColorArray: [],
@@ -199,15 +224,44 @@ class Container extends React.Component {
       block2Clicked: false,
       block3Clicked: false,
       score: 0,
-      gameStarted: false,
-      mode: ''
+      mode: 'rgb'
     };
 
-    this.changeColorRGB = this.changeColorRGB.bind(this);
+    this.changeColor = this.changeColor.bind(this);
     this.clickControl = this.clickControl.bind(this);
     this.shuffleColors = this.shuffleColors.bind(this);
     this.arraysEqual = this.arraysEqual.bind(this);
-    this.changeColorHEX = this.changeColorHEX.bind(this);
+    this.setMode = this.setMode.bind(this);
+  }
+
+  setMode(m) {
+    if (m === 'rgb') {
+      this.setState({
+        color: '#A4CAA2',
+        colorArray: [],
+        shuffledColorArray: [],
+        clickedBlocks: [],
+        block1Clicked: false,
+        block2Clicked: false,
+        block3Clicked: false,
+
+        gameStarted: false,
+        mode: 'rgb'
+      });
+    } else if (m === 'hex') {
+      this.setState({
+        color: '#A4CAA2',
+        colorArray: [],
+        shuffledColorArray: [],
+        clickedBlocks: [],
+        block1Clicked: false,
+        block2Clicked: false,
+        block3Clicked: false,
+
+        gameStarted: false,
+        mode: 'hex'
+      });
+    }
   }
 
   colorRGB() {
@@ -226,7 +280,6 @@ class Container extends React.Component {
     let c = randomColor.slice(4, 6);
 
     let hexArray = [a, b, c];
-
     return hexArray;
   }
 
@@ -239,40 +292,38 @@ class Container extends React.Component {
     return a;
   }
 
-  changeColorRGB() {
-    let currentRGB = this.colorRGB();
-    let shuffledArrayRgb = [...currentRGB];
-    let shuffledArrayRgb2 = this.shuffleColors(shuffledArrayRgb);
+  changeColor() {
+    if (this.state.mode === 'rgb') {
+      let currentRGB = this.colorRGB();
+      let shuffledArrayRgb = [...currentRGB];
+      let shuffledArrayRgb2 = this.shuffleColors(shuffledArrayRgb);
 
-    this.setState({
-      color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
-      colorArray: currentRGB,
-      shuffledColorArray: shuffledArrayRgb2,
-      clickedBlocks: [],
-      block1Clicked: false,
-      block2Clicked: false,
-      block3Clicked: false,
-      gameStarted: true,
-      mode: 'rgb'
-    });
-  }
+      this.setState({
+        color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
+        colorArray: currentRGB,
+        shuffledColorArray: shuffledArrayRgb2,
+        clickedBlocks: [],
+        block1Clicked: false,
+        block2Clicked: false,
+        block3Clicked: false,
+        gameStarted: true
+      });
+    } else if (this.state.mode === 'hex') {
+      let currentHex = this.colorHex();
+      let shuffledHex = [...currentHex];
+      let shuffledHex2 = this.shuffleColors(shuffledHex);
 
-  changeColorHEX() {
-    let currentHex = this.colorHex();
-    let shuffledHex = [...currentHex];
-    let shuffledHex2 = this.shuffleColors(shuffledHex);
-
-    this.setState({
-      color: `#${currentHex.join('')}`,
-      colorArray: currentHex,
-      shuffledColorArray: shuffledHex2,
-      clickedBlocks: [],
-      block1Clicked: false,
-      block2Clicked: false,
-      block3Clicked: false,
-      gameStarted: true,
-      mode: 'hex'
-    });
+      this.setState({
+        color: `#${currentHex.join('')}`,
+        colorArray: currentHex,
+        shuffledColorArray: shuffledHex2,
+        clickedBlocks: [],
+        block1Clicked: false,
+        block2Clicked: false,
+        block3Clicked: false,
+        gameStarted: true
+      });
+    }
   }
 
   clickControl(name, block) {
@@ -340,30 +391,31 @@ class Container extends React.Component {
             />
           </div>
         )}
+
         <div className='btnDiv'>
-          {!this.state.gameStarted ? (
-            <ActionBtnRGB onClick={this.changeColorRGB} text={'Start with RGB'} />
-          ) : this.state.clickedBlocks.length < 3 ? (
-            <ActionBtnRGB onClick={this.changeColorRGB} text={'Restart'} />
-          ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
-            <ActionBtnRGB onClick={this.changeColorRGB} text={'Next Round'} />
-          ) : (
-            <ActionBtnRGB onClick={this.changeColorRGB} text={'Try Again'} />
-          )}
+          <ModeBtnRGB onClick={() => this.setMode('rgb')} clicked={this.state.mode} />
 
           {!this.state.gameStarted ? (
-            <ActionBtnHEX onClick={this.changeColorHEX} text={'Start with HEX'} />
+            <ActionBtn onClick={this.changeColor} text={'Start'} />
           ) : this.state.clickedBlocks.length < 3 ? (
-            <ActionBtnHEX onClick={this.changeColorHEX} text={'Restart HEX'} />
+            <ActionBtn onClick={this.changeColor} text={'Restart'} />
           ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
-            <ActionBtnHEX onClick={this.changeColorHEX} text={'Next Round HEX'} />
+            <ActionBtn onClick={this.changeColor} text={'Next Round'} />
           ) : (
-            <ActionBtnHEX onClick={this.changeColorHEX} text={'Try Again HEX'} />
+            <ActionBtn onClick={this.changeColor} text={'Try Again'} />
           )}
+
+          <ModeBtnHEX onClick={() => this.setMode('hex')} clicked={this.state.mode} />
         </div>
 
         <div className='field' style={{ backgroundColor: this.state.color }}>
-          <Chameleon color={'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'} />
+          {this.state.mode === 'rgb' ? (
+            <Chameleon color={'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'} />
+          ) : this.state.mode === 'hex' ? (
+            <Chameleon color={'#' + this.state.clickedBlocks[0] + this.state.clickedBlocks[1] + this.state.clickedBlocks[2]} />
+          ) : (
+            <Chameleon />
+          )}
 
           {!this.state.gameStarted ? (
             <Message mess={"I'm not good with colors"} />
