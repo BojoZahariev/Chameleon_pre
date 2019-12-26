@@ -10,15 +10,6 @@ body {
   color: #001427;
 }
 
-.field {
-  height: 49vh;
-  width: 50vw;
-  position: relative;
-  margin: 20px auto;
-  transition: all 1s;
-  border: 2px solid #222;
-}
-
 .blocksDivText {
   margin: 0px auto 30px;
   padding: 10px 10px;
@@ -90,7 +81,9 @@ body {
 
 .btnDiv {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  width: 50vw;
+  margin: auto;
 }
 
 .actionBtn {
@@ -99,7 +92,7 @@ body {
   padding: 10px;
   width: 140px;
   line-height: 30px;
-  margin: 20px;
+  margin: 30px 20px 5px;
   font-size: 20px;
   background-color: #fe9920;
   -webkit-box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
@@ -111,6 +104,41 @@ body {
   -webkit-box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
   -moz-box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
   box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
+}
+
+.modeBtn {
+  background-color: #f2f3d9;
+  width: 70px;
+  height: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  border: 1px solid #222;
+  padding: 8px;
+  margin: 30px 20px 5px;
+  font-size: 18px;
+  -webkit-box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
+  -moz-box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
+  box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
+  align-self: flex-end;
+}
+
+.modeBtnClicked {
+  background-color: #fe9920;
+}
+
+.modeBtn:active {
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
+  box-shadow: 0px 2px 5px 0px rgba(34, 34, 34, 1);
+}
+
+.field {
+  height: 49vh;
+  width: 50vw;
+  position: relative;
+  margin: 5px auto 10px;
+  transition: all 1s;
+  border: 2px solid #222;
 }
 
 .svg {
@@ -373,5 +401,9 @@ body {
 
   .speechBubble:before {
     bottom: -20px;
+  }
+
+  .btnDiv {
+    width: 100%;
   }
 }
