@@ -252,13 +252,13 @@ class Container extends React.Component {
       block1Clicked: false,
       block2Clicked: false,
       block3Clicked: false,
-      gameStarted: true
+      gameStarted: true,
+      mode: 'rgb'
     });
   }
 
   changeColorHEX() {
     let currentHex = this.colorHex();
-
     let shuffledHex = [...currentHex];
     let shuffledHex2 = this.shuffleColors(shuffledHex);
 
@@ -270,7 +270,8 @@ class Container extends React.Component {
       block1Clicked: false,
       block2Clicked: false,
       block3Clicked: false,
-      gameStarted: true
+      gameStarted: true,
+      mode: 'hex'
     });
   }
 
@@ -339,18 +340,27 @@ class Container extends React.Component {
             />
           </div>
         )}
+        <div className='btnDiv'>
+          {!this.state.gameStarted ? (
+            <ActionBtnRGB onClick={this.changeColorRGB} text={'Start with RGB'} />
+          ) : this.state.clickedBlocks.length < 3 ? (
+            <ActionBtnRGB onClick={this.changeColorRGB} text={'Restart'} />
+          ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
+            <ActionBtnRGB onClick={this.changeColorRGB} text={'Next Round'} />
+          ) : (
+            <ActionBtnRGB onClick={this.changeColorRGB} text={'Try Again'} />
+          )}
 
-        {!this.state.gameStarted ? (
-          <ActionBtnRGB onClick={this.changeColorRGB} text={'Start Game'} />
-        ) : this.state.clickedBlocks.length < 3 ? (
-          <ActionBtnRGB onClick={this.changeColorRGB} text={'Restart'} />
-        ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
-          <ActionBtnRGB onClick={this.changeColorRGB} text={'Next Round'} />
-        ) : (
-          <ActionBtnRGB onClick={this.changeColorRGB} text={'Try Again'} />
-        )}
-
-        {!this.state.gameStarted ? <ActionBtnHEX onClick={this.changeColorHEX} text={'Start Game HEX'} /> : null}
+          {!this.state.gameStarted ? (
+            <ActionBtnHEX onClick={this.changeColorHEX} text={'Start with HEX'} />
+          ) : this.state.clickedBlocks.length < 3 ? (
+            <ActionBtnHEX onClick={this.changeColorHEX} text={'Restart HEX'} />
+          ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
+            <ActionBtnHEX onClick={this.changeColorHEX} text={'Next Round HEX'} />
+          ) : (
+            <ActionBtnHEX onClick={this.changeColorHEX} text={'Try Again HEX'} />
+          )}
+        </div>
 
         <div className='field' style={{ backgroundColor: this.state.color }}>
           <Chameleon color={'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'} />
@@ -368,21 +378,36 @@ class Container extends React.Component {
 
         <p className='score'>Score: {this.state.score}</p>
 
-        <div className='colorBar'>
-          RGB(
-          <p id='colorBarBlock1' className='colorBarBlocks'>
-            {this.state.clickedBlocks[0]}
-          </p>
-          ,
-          <p id='colorBarBlock2' className='colorBarBlocks'>
-            {this.state.clickedBlocks[1]}
-          </p>
-          ,
-          <p id='colorBarBlock3' className='colorBarBlocks'>
-            {this.state.clickedBlocks[2]}
-          </p>
-          )
-        </div>
+        {this.state.mode === 'rgb' ? (
+          <div className='colorBar'>
+            RGB(
+            <p id='colorBarBlock1' className='colorBarBlocks'>
+              {this.state.clickedBlocks[0]}
+            </p>
+            ,
+            <p id='colorBarBlock2' className='colorBarBlocks'>
+              {this.state.clickedBlocks[1]}
+            </p>
+            ,
+            <p id='colorBarBlock3' className='colorBarBlocks'>
+              {this.state.clickedBlocks[2]}
+            </p>
+            )
+          </div>
+        ) : this.state.mode === 'hex' ? (
+          <div className='colorBar'>
+            #
+            <p id='colorBarBlock1' className='colorBarBlocks'>
+              {this.state.clickedBlocks[0]}
+            </p>
+            <p id='colorBarBlock2' className='colorBarBlocks'>
+              {this.state.clickedBlocks[1]}
+            </p>
+            <p id='colorBarBlock3' className='colorBarBlocks'>
+              {this.state.clickedBlocks[2]}
+            </p>
+          </div>
+        ) : null}
 
         <p> {this.state.color}</p>
 
