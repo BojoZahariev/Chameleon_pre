@@ -88,13 +88,18 @@ body {
   }
 }
 
+.btnDiv {
+  display: flex;
+  justify-content: center;
+}
+
 .actionBtn {
   cursor: pointer;
   border: 1px solid #222;
   padding: 10px;
-  width: 120px;
+  width: 140px;
   line-height: 30px;
-  margin: 20px auto;
+  margin: 20px;
   font-size: 20px;
   background-color: #fe9920;
   -webkit-box-shadow: 0px 2px 5px 1px rgba(34, 34, 34, 1);
@@ -172,7 +177,6 @@ body {
   color: #001427;
   position: absolute;
   top: 20px;
-
   left: 40%;
   transform: translateX(-50%);
   background-color: #faf6f6;
