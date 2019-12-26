@@ -321,7 +321,6 @@ body {
     height: 40vh;
     width: 100%;
     position: relative;
-
     transition: all 1s;
     border: 2px solid #222;
   }
@@ -405,5 +404,17 @@ body {
 
   .btnDiv {
     width: 100%;
+  }
+
+  .actionBtn {
+    padding: 5px;
+    margin: 30px 5px 5px;
+    font-size: 18px;
+  }
+
+  .modeBtn {
+    padding: 5px;
+    margin: 30px 5px 5px;
+    font-size: 16px;
   }
 }
