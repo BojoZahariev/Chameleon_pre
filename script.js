@@ -263,7 +263,7 @@ class Container extends React.Component {
     let shuffledHex2 = this.shuffleColors(shuffledHex);
 
     this.setState({
-      color: `#${shuffledHex2.join('')}`,
+      color: `#${currentHex.join('')}`,
       colorArray: currentHex,
       shuffledColorArray: shuffledHex2,
       clickedBlocks: [],
