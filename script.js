@@ -171,7 +171,15 @@ class Message extends React.Component {
   }
 }
 
-const ActionButton = props => {
+const ActionBtnRGB = props => {
+  return (
+    <div className='actionBtn' onClick={props.onClick}>
+      {props.text}
+    </div>
+  );
+};
+
+const ActionBtnHEX = props => {
   return (
     <div className='actionBtn' onClick={props.onClick}>
       {props.text}
@@ -183,7 +191,7 @@ class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: '#72A98F',
+      color: '#A4CAA2',
       colorArray: [],
       shuffledColorArray: [],
       clickedBlocks: [],
@@ -191,23 +199,36 @@ class Container extends React.Component {
       block2Clicked: false,
       block3Clicked: false,
       score: 0,
-      gameStarted: false
+      gameStarted: false,
+      mode: ''
     };
 
-    this.changeColor = this.changeColor.bind(this);
+    this.changeColorRGB = this.changeColorRGB.bind(this);
     this.clickControl = this.clickControl.bind(this);
     this.shuffleColors = this.shuffleColors.bind(this);
     this.arraysEqual = this.arraysEqual.bind(this);
+    this.changeColorHEX = this.changeColorHEX.bind(this);
   }
 
-  colorRGB = () => {
+  colorRGB() {
     let r = Math.floor(Math.random() * 255);
     let g = Math.floor(Math.random() * 255);
     let b = Math.floor(Math.random() * 255);
 
     let rgbArray = [r, g, b];
     return rgbArray;
-  };
+  }
+
+  colorHex() {
+    var randomColor = (Math.random().toString(16) + '000000').slice(2, 8);
+    let a = randomColor.slice(0, 2);
+    let b = randomColor.slice(2, 4);
+    let c = randomColor.slice(4, 6);
+
+    let hexArray = [a, b, c];
+
+    return hexArray;
+  }
 
   shuffleColors(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -218,15 +239,33 @@ class Container extends React.Component {
     return a;
   }
 
-  changeColor() {
+  changeColorRGB() {
     let currentRGB = this.colorRGB();
-    let shuffledArray = [...currentRGB];
-    let shuffledArray2 = this.shuffleColors(shuffledArray);
+    let shuffledArrayRgb = [...currentRGB];
+    let shuffledArrayRgb2 = this.shuffleColors(shuffledArrayRgb);
 
     this.setState({
       color: 'rgb(' + currentRGB[0] + ',' + currentRGB[1] + ',' + currentRGB[2] + ')',
       colorArray: currentRGB,
-      shuffledColorArray: shuffledArray2,
+      shuffledColorArray: shuffledArrayRgb2,
+      clickedBlocks: [],
+      block1Clicked: false,
+      block2Clicked: false,
+      block3Clicked: false,
+      gameStarted: true
+    });
+  }
+
+  changeColorHEX() {
+    let currentHex = this.colorHex();
+
+    let shuffledHex = [...currentHex];
+    let shuffledHex2 = this.shuffleColors(shuffledHex);
+
+    this.setState({
+      color: `#${shuffledHex2.join('')}`,
+      colorArray: currentHex,
+      shuffledColorArray: shuffledHex2,
       clickedBlocks: [],
       block1Clicked: false,
       block2Clicked: false,
@@ -302,14 +341,16 @@ class Container extends React.Component {
         )}
 
         {!this.state.gameStarted ? (
-          <ActionButton onClick={this.changeColor} text={'Start Game'} />
+          <ActionBtnRGB onClick={this.changeColorRGB} text={'Start Game'} />
         ) : this.state.clickedBlocks.length < 3 ? (
-          <ActionButton onClick={this.changeColor} text={'Restart'} />
+          <ActionBtnRGB onClick={this.changeColorRGB} text={'Restart'} />
         ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) ? (
-          <ActionButton onClick={this.changeColor} text={'Next Round'} />
+          <ActionBtnRGB onClick={this.changeColorRGB} text={'Next Round'} />
         ) : (
-          <ActionButton onClick={this.changeColor} text={'Try Again'} />
+          <ActionBtnRGB onClick={this.changeColorRGB} text={'Try Again'} />
         )}
+
+        {!this.state.gameStarted ? <ActionBtnHEX onClick={this.changeColorHEX} text={'Start Game HEX'} /> : null}
 
         <div className='field' style={{ backgroundColor: this.state.color }}>
           <Chameleon color={'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'} />
