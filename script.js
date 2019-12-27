@@ -1,3 +1,4 @@
+// SVG
 const Chameleon = props => {
   return (
     <svg className='svg' viewBox='0 0 421 325' width='421' height='325' xmlns='http://www.w3.org/2000/svg'>
@@ -114,6 +115,7 @@ const Chameleon = props => {
   );
 };
 
+// COLOR BUTTONS
 const ColorFrame1 = props => {
   if (props.clicked) {
     return null;
@@ -150,6 +152,7 @@ const ColorFrame3 = props => {
   }
 };
 
+//SPEECH BUBBLE
 class Message extends React.Component {
   constructor(props) {
     super(props);
@@ -171,6 +174,7 @@ class Message extends React.Component {
   }
 }
 
+//START BUTTON
 const ActionBtn = props => {
   return (
     <div className='actionBtn' onClick={props.onClick}>
@@ -179,6 +183,7 @@ const ActionBtn = props => {
   );
 };
 
+//RGB/HEX BUTTONS
 const ModeBtnRGB = props => {
   if (props.clicked === 'RGB') {
     return (
@@ -236,6 +241,7 @@ class Container extends React.Component {
 
   setMode(m) {
     if (m === 'RGB') {
+      //RESET ALL SO IT CAN BE PRESSED MIDGAME
       this.setState({
         color: '#A4CAA2',
         colorArray: [],
@@ -244,7 +250,6 @@ class Container extends React.Component {
         block1Clicked: false,
         block2Clicked: false,
         block3Clicked: false,
-
         gameStarted: false,
         mode: 'RGB'
       });
@@ -257,13 +262,13 @@ class Container extends React.Component {
         block1Clicked: false,
         block2Clicked: false,
         block3Clicked: false,
-
         gameStarted: false,
         mode: 'HEX'
       });
     }
   }
 
+  //RANDOM RGB COLOR
   colorRGB() {
     let r = Math.floor(Math.random() * 255);
     let g = Math.floor(Math.random() * 255);
@@ -273,6 +278,7 @@ class Container extends React.Component {
     return rgbArray;
   }
 
+  //RANDOM HEX COLOR
   colorHex() {
     var randomColor = (Math.random().toString(16) + '000000').slice(2, 8);
     let a = randomColor.slice(0, 2);
@@ -292,6 +298,7 @@ class Container extends React.Component {
     return a;
   }
 
+  //SETS NEW BACKGROUND COLOR ON CLICK
   changeColor() {
     if (this.state.mode === 'RGB') {
       let currentRGB = this.colorRGB();
@@ -326,6 +333,7 @@ class Container extends React.Component {
     }
   }
 
+  //CONTROLS THE COLOR BLOCKS CLICKS AND THE SCORE
   clickControl(name, block) {
     if (this.state.clickedBlocks.length < 3 && this.state.shuffledColorArray.length) {
       if (block === 1) {
@@ -357,6 +365,7 @@ class Container extends React.Component {
     }
   }
 
+  //CHECKS IF IT IS THE RIGHT ORDER
   arraysEqual = (a1, a2) => {
     return JSON.stringify(a1) == JSON.stringify(a2);
   };
@@ -364,16 +373,18 @@ class Container extends React.Component {
   render() {
     return (
       <div>
+        {/*TITLE */}
         {!this.state.gameStarted ? (
-          <p className='blocksDivText'>
-            Dalto is a color blind chameleon. <br /> Help him to hide from the poachers.
-          </p>
+          <h1 className='blocksDivText'>
+            Meet Dalto - the color blind chameleon. <br /> Help him to hide from the poachers.
+          </h1>
         ) : (
-          <p className='blocksDivText'>
-            Choose the RED, GREEN and BLUE <span>{this.state.mode}</span> values in the right order.
-          </p>
+          <h1 className='blocksDivText'>
+            Choose the Red, Green and Blue <span>{this.state.mode}</span> values in the right order.
+          </h1>
         )}
 
+        {/*COLOR BUTTONS, NOT DISPLAYED IF CLICKED */}
         {this.state.gameStarted ? (
           <div className='blocksDiv'>
             <ColorFrame1
@@ -396,6 +407,7 @@ class Container extends React.Component {
           <div className='blocksDiv'></div>
         )}
 
+        {/*BUTTONS */}
         <div className='btnDiv'>
           <ModeBtnRGB onClick={() => this.setMode('RGB')} clicked={this.state.mode} />
 
@@ -412,6 +424,7 @@ class Container extends React.Component {
           <ModeBtnHEX onClick={() => this.setMode('HEX')} clicked={this.state.mode} />
         </div>
 
+        {/*COLOR FIELD*/}
         <div className='field' style={{ backgroundColor: this.state.color }}>
           {this.state.mode === 'RGB' ? (
             <Chameleon color={'rgb(' + this.state.clickedBlocks[0] + ',' + this.state.clickedBlocks[1] + ',' + this.state.clickedBlocks[2] + ')'} />
@@ -421,6 +434,7 @@ class Container extends React.Component {
             <Chameleon />
           )}
 
+          {/*SPEECH BUBBLE */}
           {!this.state.gameStarted ? (
             <Message mess={"I'm not good with colors"} />
           ) : this.arraysEqual(this.state.colorArray, this.state.clickedBlocks) && this.state.clickedBlocks.length > 0 ? (
@@ -434,6 +448,7 @@ class Container extends React.Component {
 
         <p className='score'>Score: {this.state.score}</p>
 
+        {/*OUTCOME */}
         {this.state.mode === 'RGB' ? (
           <div className='colorBar'>
             RGB(
@@ -465,6 +480,7 @@ class Container extends React.Component {
           </div>
         ) : null}
 
+        {/* REMOVE THAT BEFORE PRODUCTION*/}
         <p> {this.state.color}</p>
 
         <p className='title'>Dalto</p>
