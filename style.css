@@ -51,6 +51,7 @@ body {
 
 .blocks:hover {
   font-size: 35px;
+  line-height: 45px;
 }
 
 .blocks:active {
