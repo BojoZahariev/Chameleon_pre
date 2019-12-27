@@ -380,7 +380,7 @@ class Container extends React.Component {
           </h1>
         ) : (
           <h1 className='blocksDivText'>
-            Choose the Red, Green and Blue <span>{this.state.mode}</span> values in the right order.
+            Choose the Red, Green and Blue <span>{this.state.mode}</span> values <br /> in the right order.
           </h1>
         )}
 
