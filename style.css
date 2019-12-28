@@ -845,7 +845,7 @@ body {
     }
   }
 
-  @media all and (max-height: 870px) and (min-width: 1000px) {
+  @media all and (max-height: 770px) and (min-width: 1000px) {
     .blocksDivText {
       padding: 20px 10px;
       font-size: 20px;
