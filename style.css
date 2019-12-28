@@ -11,9 +11,8 @@ body {
 }
 
 .blocksDivText {
-  margin: 0px auto 30px;
+  text-align: center;
   padding: 10px 10px;
-  width: 60%;
   font-size: 40px;
   font-weight: 700;
 }
@@ -307,7 +306,7 @@ body {
 }
 
 .title {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   color: #72a98f;
   font-size: 4vw;
@@ -317,7 +316,7 @@ body {
 
 /*MEDIA*/
 
-@media only screen and (max-width: 992px) {
+@media screen and (max-width: 992px) {
   .field {
     height: 40vh;
     width: 100%;
@@ -327,9 +326,7 @@ body {
   }
 
   .blocksDivText {
-    margin: 0px auto 20px;
     padding: 20px 10px;
-    width: 100%;
     font-size: 20px;
     font-weight: 600;
   }
@@ -388,7 +385,7 @@ body {
   }
 }
 
-@media (max-width: 576px) {
+@media screen and (max-width: 576px) {
   .svg {
     width: 200px;
   }
@@ -421,5 +418,49 @@ body {
     margin: 30px 5px 5px;
     font-size: 16px;
     line-height: 25px;
+  }
+}
+
+@media screen and (max-height: 870px), screen and (min-width: 995px) {
+  .blocksDivText {
+    padding: 20px 10px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .blocksDiv {
+    margin-top: 10px;
+    height: 40px;
+  }
+
+  .blocks {
+    width: 110px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 40px;
+  }
+
+  .actionBtn {
+    width: 120px;
+    line-height: 30px;
+    padding: 5px;
+    font-size: 18px;
+  }
+
+  .speechBubble {
+    width: 124px;
+    padding: 12px;
+    font-size: 20px;
+    top: 10px;
+    left: 30%;
+    border: 2px solid #222;
+  }
+
+  .speechBubble:before {
+    bottom: -20px;
+  }
+
+  .svg {
+    width: 200px;
   }
 }
